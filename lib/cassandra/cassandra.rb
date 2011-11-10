@@ -983,7 +983,7 @@ class Cassandra
     key_slices = _get_indexed_slices(column_family, index_clause, columns, options[:count], options[:start],
       options[:finish], options[:reversed], options[:consistency])
 
-    key_slices.inject({}){|h, key_slice| h[key_slice.key] = key_slice.columns; h}
+    key_slices.inject(Cassandra::OrderedHash.new()){|h, key_slice| h[key_slice.key] = key_slice.columns; h}
   end
 
   protected
